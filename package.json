@@ -1,0 +1,60 @@
+{
+  "name": "reacqtt",
+  "private": false,
+  "description": "React hooks for utilizing MQTT",
+  "author": "Sina Sadjadi <sinasadjadi@proton.me>",
+  "license": "MIT",
+  "homepage": "https://github.com/sinasadjadi/reacqtt",
+  "repository": "https://github.com/sinasadjadi/reacqtt",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "lib/index.umd.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.js",
+  "exports": {
+    ".": {
+      "import": "./lib/index.es.js",
+      "require": "./lib/index.umd.js",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "files": [
+    "/lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "tsc --noEmit && eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "mqtt": "^5.3.5",
+    "mqtt-pattern": "^2.1.0",
+    "react": "^18.2.0",
+    "uuid": "^9.0.1",
+    "vite-plugin-dts": "^3.9.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.19",
+    "@types/uuid": "^9.0.8",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "rollup-plugin-typescript-paths": "^1.5.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.1.0"
+  }
+}
