@@ -6,7 +6,6 @@
 A powerful React library for simplify MQTT integration
 <br/>
 <br/>
-<a href=""><strong>Explore the docs »</strong></a>
 <br/>
 <br/>
  <a href="https://github.com/sinasadjadi/reacqtt/issues/new?labels=bug">Report Bug .</a>
