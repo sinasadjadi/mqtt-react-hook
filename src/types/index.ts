@@ -4,13 +4,13 @@ import {Packet} from "mqtt-packet";
 import Cache from "@/store/cache";
 import React from "react";
 
-export interface IReactMqttPattern {
+export interface IPattern {
 }
 
 type UseIfExist<T, K> = K extends keyof T ? T[K] : never;
 type TMQttBasic = Record<string, { params?: object; payload?: object }>
 
-type TParams<K extends keyof TPatterns = any> = keyof IReactMqttPattern extends never ? {
+type TParams<K extends keyof TPatterns = any> = keyof IPattern extends never ? {
     params?: UseIfExist<TPatterns[K], "params">
 } : UseIfExist<TPatterns[K], "params"> extends never ? {
     params?: UseIfExist<TPatterns[K], "params">
@@ -18,7 +18,7 @@ type TParams<K extends keyof TPatterns = any> = keyof IReactMqttPattern extends 
 
 export type Optional<T, K extends keyof T> = Pick<Partial<T>, K> & Omit<T, K>;
 
-export type TPatterns = keyof IReactMqttPattern extends never ? TMQttBasic : IReactMqttPattern
+export type TPatterns = keyof IPattern extends never ? TMQttBasic : IPattern
 
 export type TCacheItem = {
     time: Date

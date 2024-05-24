@@ -316,7 +316,7 @@ in TypeScript. To begin, create a declaration file that exports a module named m
 
 ```ts
 export declare module "mqtt-react-hook" {
-    interface IReactMqttPattern {
+    interface IPattern {
         "GET_DEVICE_INFO/+userId/+deviceId": {
             // define the param types
             params: { userId: string, deviceId: string }
