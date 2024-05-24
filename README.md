@@ -1,6 +1,6 @@
 <br/>
 <div align="center"> 
-<h1 align="center">Reacqtt</h1>
+<h1 align="center">Mqtt React Hook</h1>
 <h5 align="center">React + MQTT</h5>
 <p align="center">
 A powerful React library for simplify MQTT integration
@@ -8,8 +8,8 @@ A powerful React library for simplify MQTT integration
 <br/>
 <br/>
 <br/>
- <a href="https://github.com/sinasadjadi/reacqtt/issues/new?labels=bug">Report Bug .</a>
-  <a href="https://github.com/sinasadjadi/reacqtt/issues/new?labels=enhancement">Request Feature</a>
+ <a href="https://github.com/sinasadjadi/mqtt-react-hook/issues/new?labels=bug">Report Bug .</a>
+  <a href="https://github.com/sinasadjadi/mqtt-react-hook/issues/new?labels=enhancement">Request Feature</a>
 </p>
 <br/>
 <br/>
@@ -22,12 +22,12 @@ If you have experience developing MQTT functionality within a React application,
 when managing a growing number of topics. As the number of topics increases, it becomes difficult to handle them
 effectively.
 
-**Reacqtt** is a React library that offers multiple React hooks, designed to simplify the integration of MQTT
+**mqtt-react-hook** is a React library that offers multiple React hooks, designed to simplify the integration of MQTT
 functionality within your React applications.
 
 ## Features
 
-- **Type Safety and Embeded types**: Reacqtt includes embedded type definitions to enhance your IDE experience and
+- **Type Safety and Embeded types**: mqtt-react-hook includes embedded type definitions to enhance your IDE experience and
   prevent errors like type coercion,
 - **Caching**: There is a global caching mechanism that stores the last received message from the broker for each
   subscribed topic.
@@ -35,14 +35,14 @@ functionality within your React applications.
 - **Using Mqtt Pattern**: Using patterns instead of fixed topics: This feature is often beneficial since MQTT topics
   typically involve dynamic parameters.
 
-follow the documentation for detailed instructions on implementing this features."
+Follow the documentation for detailed instructions on implementing this features."
 
 ## Installation
 
    ```sh
-   npm install reacqtt
+   npm install mqtt-react-hook
    #or
-   yarn add reacqtt
+   yarn add mqtt-react-hook
    ``` 
 
 ## Usage
@@ -51,13 +51,13 @@ follow the documentation for detailed instructions on implementing this features
 enables each child component within it to access the provided hooks.
 
 ```tsx
-import {ReactMqttContextProvider} from "reacqtt";
+import {ReactMqttContextProvider} from "mqtt-react-hook";
 
 const App = () => {
 
     return (
         <ReactMqttContextProvider
-            brokerUrl={"ws://127.0.0.1:8083/mqtt"} //mqtt broker url 
+            brokerUrl={"BROKER_URL"} //mqtt broker url 
         >
             //your components
         </ReactMqttContextProvider>
@@ -69,7 +69,7 @@ export default App
 2- use the hooks: `useMqttSubscribe` , `useMqttPublish`
 
 ```tsx
-import {useMqttSubscribe, useMqttPublish} from "reacqtt";
+import {useMqttSubscribe, useMqttPublish} from "mqtt-react-hook";
 
 const UserInfo = () => {
 
@@ -121,7 +121,7 @@ within this Context Provider is necessary to access the provided hooks.
       information.</a>
 * `manualConnect: boolean`
     * **Optional**
-    * Set this to false if you don't want your MQTT client to connect automatically after the initial render of your
+    * Set this to `true` if you don't want your MQTT client to connect automatically after the initial render of your
       application. In this case, you must call the `reconnect` function manually whenever you want to connect to the
       MQTT broker. This option is useful when certain client options, such as credentials, are not yet ready during the
       initial render of your application.
@@ -135,8 +135,7 @@ within this Context Provider is necessary to access the provided hooks.
     * the status of mqtt client connection
 * `reconnect: (url?: string, opts?: Omit<IClientOptions, "manualConnect">) => Promise<MqttClient | null>`
     * use this to reconnect the MQTT client to the broker.
-
-<br/>
+ 
 
 ### `useMqttSubscribe`
 
@@ -149,66 +148,68 @@ A hook for subscribing into a topic.
     * The MQTT topic pattern. `eg: device/+id`
 * `params: Record<string, string>`
     * **Optional**
-    * the dynamic params which exist on topic pattern.
+    * The dynamic params which exist on topic pattern.
     * For example, if your topic pattern is `device/+id/+name`, you must provide the following parameters
       to `useMqttSubscribe` to create your topic.
+    * ``{id: "123", name: "sampleName"}``
+  
     * This library uses `mqtt-pattern` to create topics. The topics are generated based on the pattern and params values
       passed as arguments.
     * <a href="https://github.com/RangerMauve/mqtt-pattern?tab=readme-ov-file#mqtt-pattern">mqtt-pattern</a>
 
 * `options: IClientSubscribeOptions`
     * **Optional**
-    * the options to subscribe with.
+    * The options to subscribe with.
     * <a href="https://github.com/mqttjs/MQTT.js?tab=readme-ov-file#mqttclientsubscribetopictopic-arraytopic-object-options-callback">
       visit this link for more information.</a>
 * `onSubscribeSuccess: (granted?: ISubscriptionGrant[]) => void`
     * **Optional**
-    * a callback function that is called after successfully subscribing to a topic
+    * A callback function that is called after successfully subscribing into a topic
 * `onSubscribeError: (e: Error) => void`
     * **Optional**
-    * a callback function called if there is an error in subscription
+    * A callback function called if there is an error in subscription
 * `onMessage: (payload: any) => void`
     * **Optional**
-    * a callback function that is called after MQTT client receives a message.
+    * A callback function that is called after MQTT client receives a message.
 * `onUnSubscribe?: (error?: Error, packet?: Packet) => void`
     * **Optional**
-    * a callback function that is invoked after the MQTT client unsubscribes from a topic.
+    * A callback function that is invoked after the MQTT client unsubscribes from a topic.
 * `unSubscribeOptions: IClientSubscribeOptions`
     * **Optional**
-    * the options to unSubscribe with.
+    * The options to unSubscribe with.
 * `enable: boolean`
     * **Optional**
-    * set this to `false` to disable this subscription from automatically subscribed.
+    * Set this to `false` to disable this subscription from automatically subscribed.
     * defaults to `true`
 * `cacheFirst?: boolean`
     * **Optional**
-    * to use the cached response of the topic as the initial value of the payload, if available.
+    * To use the cached response of the topic as the initial value of the payload, if available.
     * defaults to `false`
 
 #### returns:
 
 * `payload: any`
-    * the payload of the last received message.
+    * The payload of the last received message.
 * `subscribe: () => TSubscribeReturnType`
-    * the method to manually subscribe to a topic.
+    * The method to manually subscribe to a topic.
 * `unSubscribe: () => void`
-    * the method to manually unsubscribe a topic.
+    * The method to manually unsubscribe from a topic.
 * `isReady: boolean`
     * a boolean flag that generally determines if the hook is ready to subscribe to the topic. This means that all
       values are provided inside `params` have value, and the hook has successfully created the topic from the pattern.
-    * by default, if `isEnable` is true, the hook will subscribe to the topic when `isReady` becomes true.
+    * By default, if `isEnable` is true, the hook will subscribe to the topic when `isReady` becomes true.
 * `status: "subscribed" | "unSubscribed" | "idle" | "error"`
     * the status of the subscription.
     * will be
-        * `idle`: when any of `mqtt.connected`, `isEnable`, or `isReady` is false.
+        * `idle`: when any of `mqtt.connected`, `isEnable`, or `isReady` is `false`.
         * `subscribed`: hook successfully subscribed to topic
-        * `unSubscribed`: If the hook has been unsubscribed from the provided topic, the action of unsubscription will
+        * `unSubscribed`: When the hook has been unsubscribed from the provided topic. the action of unsubscription will
           occur in the following scenarios:
-            * when component unmount
-            * when call `unsubscribe` method manually.
+            * when component unmount.
+            * when `unsubscribe` function returned by hook, will be called method.
             * When you manually call the `unSubscribeTopic` method in the `useMqttUtils` hook, it changes the status of
-              all subscription hooks for the provided topic to unSubscribed.
-        * `error`: If there is an error in the subscription, the corresponding error property contains the error
+              all subscription hooks for the provided topic to `unSubscribed`.
+        * `error`: If there are any errors in the subscription, the corresponding error property contains the error
           received.
 
 * `errors: unknown[]`:
@@ -219,9 +220,7 @@ A hook for subscribing into a topic.
     * The unique ID of the hook.
 * `dataUpdatedAt: Date | null`
     * The last time the hook received a message on the subscribed topic.
-
-<br/>
-
+ 
 ### `useMqttPublish`
 
 A hook for publishing a message (payload) into a topic.
@@ -233,9 +232,10 @@ A hook for publishing a message (payload) into a topic.
     * The MQTT topic pattern. `eg: device/+id`
 * `params: Record<string, string>`
     * **Optional**
-    * the dynamic params which exist on topic pattern.
+    * The dynamic params which exist on topic pattern.
     * For example, if your topic pattern is `device/+id/+name`, you must provide the following parameters
-      to `useMqttSubscribe` to create your topic.
+      to `useMqttPublish` to create your topic.
+    * ``{id: "123", name: "sampleName"}``
     * This library uses `mqtt-pattern` to create topics. The topics are generated based on the pattern and params values
       passed as arguments.
     * <a href="https://github.com/RangerMauve/mqtt-pattern?tab=readme-ov-file#mqtt-pattern">mqtt-pattern</a>
@@ -246,16 +246,16 @@ A hook for publishing a message (payload) into a topic.
     * a boolean flag that generally determines if the hook is ready to publish message into the topic. This means that
       all values are provided inside `params` have value, and the hook has successfully created the topic from the
       pattern.
-* `publish: (config: TPublishmentConfig) => TPublishReturnType;`
+* `publish: (config: TPublishmentConfig) => Promise<Packet | undefined>;`
     * The publish function must be called whenever you want to publish to the provided topic.
     * Before calling this function, ensure that `isReady` is true.
     * the `config` params can have the following values
         * `payload: any`
             * **Optional**
-            * the payload object to send in publishment.
+            * The payload object to send in publishment.
         * `options: IClientPublishOptions`
             * **Optional**
-            * the options of mqtt publish method
+            * The options of mqtt publish method
             * <a href="https://github.com/mqttjs/MQTT.js?tab=readme-ov-file#mqttclientpublishtopic-message-options-callback">
               visit this link for more information.</a>
 
@@ -265,10 +265,10 @@ A hook for publishing a message (payload) into a topic.
         * `onPublishError: (e: Error) => void`
             * **Optional**
             * A callback method invoked after any errors occur during publishment.
-    * the dynamic params which exist on topic pattern.
+    * The dynamic params which exist on topic pattern.
 * `status: "publishing" | "published" | "error" | "idle"`
-    * the status of the hook.
-    * will be
+    * The status of the hook.
+    * Will be
         * `idle`: when the `publish` method has not been called yet.
         * `published`: When the hook successfully publishes the message to the topic.
         * `publishing`: When the hook is attempting to publish the message.
@@ -277,9 +277,7 @@ A hook for publishing a message (payload) into a topic.
     * Errors occur when the hook attempts to publish the message.
 * `topic: string | null`
     * The generated topic based on the provided `pattern` and `params`.
-
-<br/>
-
+ 
 ### `useMqttUtils`
 
 A hook that returns several useful utilities.
@@ -287,32 +285,24 @@ A hook that returns several useful utilities.
 #### returns:
 
 * `unSubscribeTopic: ({ topic: string, options?: IClientSubscribeOptions }) => void`
-    * a function to force all subscription of the provided topic unsubscribe.
-    * note: Generally, the status of the subscription hooks change to `unSubscribed` when:
-        * component unmounts,
-        * the `unSubscribe` function which returns from `useMqttSubscription` called.
-        * but what happen if there are 2 subscription hook at the same topic and one of them attempts to unsubscribe. in
-          this case, the hook always check if there is a subscription at the provided topic:
-            * **There is another active subscription**: Only the status of the unsubscribing hook changes to
-              unSubscribed, and it will no longer receive messages.
-            * **There is no other active subscription**: The MQTT client unsubscribes from the topic (mqtt.unsubscribe
-              is called), and the status of the all topic subscription changes to unSubscribed.
-        * So instead, if you want to unsubscribe all subscriptions to the provided topic, simply call
-          the `unSubscribeTopic`.
+    * A function to force all subscription of the provided topic unsubscribe.
+    * Note: Generally, the status of the subscription hooks change to `unSubscribed` when:
+        * Component unmounts.
+        * The `unSubscribe` function returned from `useMqttSubscription` is called.
+        * When the `unSubscribeTopic` function is called, it will unsubscribe all subscriptions to the provided topic. 
 * `getCache: (topic: string, buffer?: boolean) => undefined | TCacheItem`
+    * ``type TCacheItem = { time: Date payload: ArrayBuffer | object topic: string }``
     * A function to get the available cache for the provided topic.
     * params:
         * `topic`
         * `buffer` Determines whether you want to receive the raw message (Buffer) or the converted version (Object).
-    * TCacheItem:
-    * ``type TCacheItem = { time: Date payload: ArrayBuffer | object topic: string }``
 
 * `deleteCache: (topic: string) => void`
 * `clearCache: (topic: string) => void`
 
 ## TypeScript
 
-**Reacqtt** includes embedded type definitions to enhance your IDE experience and prevent errors like type coercion.
+**mqtt-react-hook** includes embedded type definitions to enhance your IDE experience and prevent errors like type coercion.
 
 This is an optional feature that may impact compilation time depending on your project size. However, it's highly
 recommended for developers using TypeScript to take advantage of the type enhancements it offers.
@@ -322,10 +312,10 @@ recommended for developers using TypeScript to take advantage of the type enhanc
 You can define your own types for topics
 using [Type Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
 and [Merging Interfaces](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces)
-in TypeScript. To begin, create a declaration file that exports a module named reacqtt.
+in TypeScript. To begin, create a declaration file that exports a module named mqtt-react-hook.
 
 ```ts
-export declare module "reacqtt" {
+export declare module "mqtt-react-hook" {
     interface IReactMqttPattern {
         "GET_DEVICE_INFO/+userId/+deviceId": {
             // define the param types
@@ -341,9 +331,6 @@ export declare module "reacqtt" {
 ```
 
 Easy-peasy, that's it.
-
-See the [open issues](https://github.com/ShaanCoding/ReadME-Generator/issues) for a full list of proposed features (and
-known issues).
 
 ## Contributing
 
@@ -367,7 +354,7 @@ Distributed under the MIT License. See [MIT License](https://opensource.org/lice
 
 Sina Sadjadi - [linkedin](https://www.linkedin.com/in/sinasadjadi) - [sinasadjadi@proton.me](mailto:sinasadjadi@proton.me)
 
-Project Link: [https://github.com/sinasadjadi/reacqtt](https://github.com/sinasadjadi/reacqtt)
+Project Link: [https://github.com/sinasadjadi/mqtt-react-hook](https://github.com/sinasadjadi/reacqtt)
 
 
 ## Acknowledgments
