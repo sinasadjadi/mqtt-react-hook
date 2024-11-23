@@ -1,11 +1,9 @@
-import Deferred from "@/utilize/DeferredPromise.ts";
+import Deferred from "@/utilize/DeferredPromise";
 import {MqttClient, IClientPublishOptions, IClientSubscribeOptions, ISubscriptionGrant, IClientOptions} from "mqtt";
 import {Packet} from "mqtt-packet";
 import Cache from "@/store/cache";
 import React from "react";
-
-export interface IPattern {
-}
+import {IPattern} from 'mqtt-react-hook'
 
 type UseIfExist<T, K> = K extends keyof T ? T[K] : never;
 type TMQttBasic = Record<string, { params?: object; payload?: object }>
@@ -108,3 +106,5 @@ export type TContextReturnData = {
     reconnect: (url?: TContextProviderProps["brokerUrl"], opts?: TContextProviderProps["opts"]) => Promise<MqttClient | null>
     status: "online" | "offline" | "reconnecting" | "error"
 };
+
+

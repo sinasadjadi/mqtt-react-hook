@@ -11,7 +11,7 @@ import {
     TPublishReturnType,
     TError
 } from "@/types";
-import Deferred from "@/utilize/DeferredPromise.ts";
+import Deferred from "@/utilize/DeferredPromise";
 
 export default function useMqttPublish<K extends keyof TPatterns = any>({
                                                                             pattern,

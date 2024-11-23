@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {fill} from "mqtt-pattern";
 import {IClientSubscribeOptions, ISubscriptionGrant} from "mqtt";
 import {useReactMqtt} from "@/context";
-import Deferred from "@/utilize/DeferredPromise.ts";
+import Deferred from "@/utilize/DeferredPromise";
 import {
     TSubscriptionParams,
     TSubscriptionResponse,
@@ -14,7 +14,7 @@ import {
 import {v4 as uuidv4} from "uuid";
 import {Cache} from "@/store";
 import {validateTopic} from "@/utilize";
-import useUtils from "@/hooks/useMqttUtils.ts";
+import useUtils from "@/hooks/useMqttUtils";
 import {MqttMessageEventBus} from "@/context/MqttEventBus";
 
 export default function useSubscription<K extends keyof TPatterns = any>({
@@ -59,7 +59,7 @@ export default function useSubscription<K extends keyof TPatterns = any>({
 
     const validation = React.useMemo(() => validateTopic(pattern as string, params), [pattern, params])
 
-    const isReady = React.useMemo<boolean>(() => validation.result && !!mqtt?.connected, [mqtt?.connected, pattern, params]);
+    const isReady = React.useMemo<boolean>(() => validation.result && !!mqtt?.connected, [mqtt?.connected, validation.result]);
 
     const listen = (topic: string) => MqttMessageEventBus.$on(topic, id, clb)
 

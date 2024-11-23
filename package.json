@@ -6,7 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/sinasadjadi/mqtt-react-hook",
   "repository": "https://github.com/sinasadjadi/mqtt-react-hook",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "keywords": [
     "mqtt",
     "react",
@@ -15,47 +15,52 @@
     "mqtt.js",
     "mqtt-pattern",
     "react-hooks",
-    "mqtt-hooks",
-    "mqtt-react-hook"
+    "mqtt-hooks"
   ],
   "type": "module",
-  "main": "lib/index.umd.js",
-  "module": "lib/index.es.js",
-  "types": "lib/index.d.js",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.min.js",
+  "module": "./dist/index.es.min.js",
+  "types": "./dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./lib/index.es.js",
-      "require": "./lib/index.umd.js",
-      "types": "./lib/index.d.ts"
+      "require": "./dist/index.min.js",
+      "import": "./dist/index.es.min.js"
     }
   },
-  "files": [
-    "/lib"
-  ],
   "publishConfig": {
     "access": "public"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "npm run lint && npm run clean && rollup -c && tsc-alias -p tsconfig.json",
     "lint": "tsc --noEmit && eslint .",
-    "preview": "vite preview"
+    "clean": "rimraf dist"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0"
   },
   "dependencies": {
     "mqtt": "^5.3.5",
     "mqtt-pattern": "^2.1.0",
-    "react": "^18.2.0",
-    "uuid": "^9.0.1",
-    "vite-plugin-dts": "^3.9.0"
+    "rollup": "^4.20.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "@rollup/plugin-alias": "^5.1.1",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/react": "^18.2.55",
-    "@types/react-dom": "^18.2.19",
     "@types/uuid": "^9.0.8",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
@@ -64,8 +69,10 @@
     "eslint-plugin-react-refresh": "^0.4.5",
     "husky": "^9.0.11",
     "prettier": "^3.2.5",
-    "rollup-plugin-typescript-paths": "^1.5.0",
-    "typescript": "^5.3.3",
-    "vite": "^5.1.0"
+    "rimraf": "^6.0.1",
+    "rollup-plugin-bundle-size": "^1.0.3",
+    "rollup-plugin-terser": "^7.0.2",
+    "tsc-alias": "^1.8.10",
+    "typescript": "^5.3.3"
   }
 }

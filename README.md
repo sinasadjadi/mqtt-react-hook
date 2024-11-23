@@ -315,7 +315,8 @@ and [Merging Interfaces](https://www.typescriptlang.org/docs/handbook/declaratio
 in TypeScript. To begin, create a declaration file that exports a module named mqtt-react-hook.
 
 ```ts
-export declare module "mqtt-react-hook" {
+import "mqtt-react-hook"
+declare module "mqtt-react-hook" {
     interface IPattern {
         "GET_DEVICE_INFO/+userId/+deviceId": {
             // define the param types

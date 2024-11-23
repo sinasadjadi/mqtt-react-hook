@@ -1,1 +1,1 @@
-export {useReactMqtt, ReactMqttContextProvider} from "@/context/ReactMqttContext.tsx"
+export {useReactMqtt, ReactMqttContextProvider} from "@/context/ReactMqttContext"
