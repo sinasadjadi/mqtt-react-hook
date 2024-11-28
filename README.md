@@ -307,12 +307,12 @@ A hook that returns several useful utilities.
 This is an optional feature that may impact compilation time depending on your project size. However, it's highly
 recommended for developers using TypeScript to take advantage of the type enhancements it offers.
 
-### Create a declaration file and export it
+### Create a declaration file
 
 You can define your own types for topics
 using [Type Augmentation](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation)
 and [Merging Interfaces](https://www.typescriptlang.org/docs/handbook/declaration-merging.html#merging-interfaces)
-in TypeScript. To begin, create a declaration file that exports a module named mqtt-react-hook.
+in TypeScript. To begin, create a declaration and import mqtt-react-hook. then declare an Interface(or Type) called IPattern.
 
 ```ts
 import "mqtt-react-hook"

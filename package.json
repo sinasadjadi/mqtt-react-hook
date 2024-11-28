@@ -6,7 +6,7 @@
   "license": "MIT",
   "homepage": "https://github.com/sinasadjadi/mqtt-react-hook",
   "repository": "https://github.com/sinasadjadi/mqtt-react-hook",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "keywords": [
     "mqtt",
     "react",
